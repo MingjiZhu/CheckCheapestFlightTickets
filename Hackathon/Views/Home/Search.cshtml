@@ -1,0 +1,104 @@
+﻿@model Hackathon.Models.ViewModels.FlightsWithWeathers
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Styles {
+    <style type="text/css">
+        .roundedCorners {
+            border-collapse: separate;
+            border-radius: 15px 25px;
+            border: 2px solid #000000;
+            padding: 20px;
+        }
+    </style>
+}
+
+<div>
+    <h5>@Model.Flights.DestinationAirport Weather</h5>
+    <hr />
+    <table style="width:100%" class="roundedCorners">
+        <tr>
+            @foreach (var item in Model.Weathers)
+            {
+                <td>@item.TempDate.ToString("dd/MM/yyyy")</td>
+            }
+        </tr>
+        <tr>
+            @foreach (var item in Model.Weathers)
+            {
+                <td><img src="http://openweathermap.org/img/w/@item.Icon"></td>
+            }
+        </tr>
+        <tr>
+            @foreach (var item in Model.Weathers)
+            {
+                <td>@item.Temp &#8451</td>
+            }
+        </tr>
+        <tr>
+            @foreach (var item in Model.Weathers)
+            {
+                <td>@item.Description</td>
+            }
+        </tr>
+    </table>
+    <br />
+    <h5>Flights from: @Model.Flights.OriginAirport</h5>
+    <hr />
+    @foreach (var item in Model.Flights.FlightList)
+    {
+        <table style="width:100%" class="roundedCorners">
+            <tr>
+                <th colspan="2">Airline</th>
+                <th>Flight Number</th>
+            </tr>
+            <tr>
+                <td colspan="2">@item.Airline</td>
+                <td>@item.FlightNumber</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <th>Departure Date</th>
+                        </tr>
+                        <tr>
+                            <td>@item.DepartureDate</td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th>Return Date</th>
+                        </tr>
+                        <tr>
+                            <td>@item.ReturnDate</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <th>Price</th>
+                        </tr>
+                        <tr>
+                            <td>@item.Price USD</td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th>Offers expires on</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @item.ExpiryDate
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br />
+    }
+</div>
